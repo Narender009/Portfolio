@@ -1,16 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { Share2, Settings, Monitor } from 'lucide-react';
-import { Twitter, Facebook, Instagram, Dribbble } from 'lucide-react';
+import { Share2, Settings, Monitor, Flower, ShoppingCart  } from 'lucide-react';
+import { Twitter, Facebook, Instagram, Dribbble, Linkedin, Github} from 'lucide-react';
+import axios from "axios";
 
 const TypingHeader = () => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
+  const [formData, setFormData] = useState({
+    name: "",
+    subject: "",
+    email: "",
+    message: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrorMessage(""); // Clear error message when user starts typing
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!formData.name || !formData.subject || !formData.email || !formData.message) {
+      setErrorMessage("Please fill out all fields.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/send-email", formData);
+      alert("Message sent successfully!");
+      setFormData({ name: "", subject: "", email: "", message: "" }); // Reset form
+      setErrorMessage(""); // Clear error message
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Failed to send the message.");
+    }
+  };
+
   
 
-  const words = ['Narender Rai', 'Developer'];
+  const words = ['Narender Rai', 'Junior Software Developer'];
   const period = 2000;
 
   useEffect(() => {
@@ -61,37 +95,49 @@ const PhotographerPortfolio = () => {
     const timelineData = {
     work: [
       {
-        title: "Full stack Web Developer",
-        period: "2019 - 2024",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+        title: "Junior Software Developer",
+        company: "Orange Infotech",
+        location: "Noida",
+        period: "Jan 2024 - Present",
+        description: "Designed and developed a responsive frontend using React.js, improving user engagement by 20%. Built and maintained backend services using Node.js and Django, ensuring optimal server-side performance. Created RESTful APIs to facilitate seamless communication between the frontend and backend. Integrated third-party APIs and databases, enhancing system reliability and efficiency. Collaborated with cross-functional teams to design and implement new features based on client requirements. Conducted code reviews and optimized code for performance and scalability, adhering to industry best practices."
       },
-      {
-        title: "Back-End Developer",
-        period: "2015 - 2018",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-      },
-      {
-        title: "UI/UX Designer",
-        period: "2013 - 2015",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-      }
+      // {
+      //   title: "Back-End Developer",
+      //   period: "2015 - 2018",
+      //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+      // },
+      // {
+      //   title: "UI/UX Designer",
+      //   period: "2013 - 2015",
+      //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+      // }
     ],
     education: [
       {
-        title: "Academic Degree",
-        period: "2019 - 2024",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-      },
-      {
         title: "Bachelor's Degree",
-        period: "2015 - 2018",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+        period: "2017 - 2021",
+        description: "B.Tech in Mechanical"
       },
+      // {
+      //   title: "Academic Degree",
+      //   period: "2019 - 2024",
+      //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+      // },
+      // {
+      //   title: "Bachelor's Degree",
+      //   period: "2015 - 2018",
+      //   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+      // },
       {
         title: "Specialization Course",
-        period: "2013 - 2015",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-      }
+        period: "2014 - 2016",
+        description: "CBSE 12TH, Science"
+      },
+      {
+        title: "Secondary Education",
+        period: "2013 - 2014",
+        description: "CBSE 10TH."
+      },
     ]
   };
 
@@ -104,6 +150,11 @@ const PhotographerPortfolio = () => {
       
       <div className="space-y-2">
         <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+        <div className="flex items-center gap-2 text-sm">
+          <span className="text-orange-500">{item.company}</span>
+          <span className="text-gray-400">•</span>
+          <span className="text-gray-400">{item.location}</span>
+        </div>
         <span className="inline-block px-3 py-1 bg-red-500 text-white text-sm rounded">
           {item.period}
         </span>
@@ -113,36 +164,38 @@ const PhotographerPortfolio = () => {
       </div>
     </div>
   );
+
+
   const services = [
     {
-      icon: <Share2 className="w-8 h-8 text-red-500" />,
-      title: "Fast Communication",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore."
-    },
-    {
-      icon: <Settings className="w-8 h-8 text-red-500" />,
-      title: "Market Analysis",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore."
+      icon: <Flower className="w-8 h-8 text-red-500" />,
+      title: "Yoga Website",
+      description: "I developed a comprehensive Yoga Website leveraging modern technologies to create a seamless user experience and robust functionality. The website caters to yoga enthusiasts, offering class scheduling, booking, and user management features."
     },
     {
       icon: <Monitor className="w-8 h-8 text-red-500" />,
-      title: "Web Development",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore."
+      title: "Movie Website",
+      description: "I developed an engaging Movie Website using HTML, CSS, and JavaScript, integrating advanced APIs to deliver a comprehensive platform for discovering and streaming movies and TV shows."
+    },
+    {
+      icon: <ShoppingCart className="w-8 h-8 text-red-500" />,
+      title: "Shopping Website",
+      description: "I developed a Shopping Website using Django as the backend framework and PostgreSQL as the database, providing a robust and efficient platform for online shopping. The frontend and backend communicate seamlessly using Axios, ensuring a smooth user experience."
     }
   ];
 
   const skills = {
     design: [
-      { name: "Photoshop", percentage: 90 },
-      { name: "Illustrator", percentage: 80 },
-      { name: "Figma", percentage: 75 },
-      { name: "Adobe XD", percentage: 95 }
+      { name: "HTML5", percentage: 95 },
+      { name: "CSS3", percentage: 85 },
+      { name: "Javascript", percentage: 90 },
+      { name: "React", percentage: 95 }
     ],
     development: [
-      { name: "HTML5 CSS3", percentage: 90 },
-      { name: "Javascript", percentage: 80 },
-      { name: "React", percentage: 75 },
-      { name: "Jquery", percentage: 85 }
+      { name: "Node.js", percentage: 95 },
+      { name: "Django", percentage: 90 },
+      { name: "Mongodb", percentage: 85 },
+      { name: "PostgreSQL", percentage: 80 }
     ]
   };
 
@@ -201,43 +254,92 @@ const PhotographerPortfolio = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
-    <nav
-      className={`fixed w-full z-50 px-6 py-4 flex justify-around items-center transition-all duration-300 ${
-        scrolled ? " shadow-lg bg-white text-black" : ""
-      }`}
-    >
-      <div className="text-2xl font-bold">
-        <span className="text-yellow-400">R</span>
-        <span>AI</span>
-      </div>
+      <nav
+        className={`fixed w-full z-50 px-6 py-4 flex justify-between items-center transition-all duration-300 ${
+          scrolled ? "shadow-lg bg-white text-black" : ""
+        }`}
+      >
+        <div className="text-4xl font-bold">
+          <span className="text-yellow-400">R</span>
+          <span>AI</span>
+        </div>
 
-      <div className="hidden md:flex space-x-8">
-        <a href="#" className="hover:text-yellow-400">
-          Home
-        </a>
-        <a href="#" className="hover:text-yellow-400">
-          About
-        </a>
-        <a href="#" className="hover:text-yellow-400">
-          Service
-        </a>
-        <a href="#" className="hover:text-yellow-400">
-          Resume
-        </a>
-        <a href="#" className="hover:text-yellow-400">
-          Portfolio
-        </a>
-        <a href="#" className="hover:text-yellow-400">
-          Blog
-        </a>
-        <a href="#" className="hover:text-yellow-400">
-          Contact
-        </a>
-      </div>
-    </nav>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-8">
+          <a href="#" className="hover:text-yellow-400">Home</a>
+          <a href="#" className="hover:text-yellow-400">About</a>
+          <a href="#" className="hover:text-yellow-400">Service</a>
+          <a href="#" className="hover:text-yellow-400">Resume</a>
+          {/* <a href="#" className="hover:text-yellow-400">Portfolio</a>
+          <a href="#" className="hover:text-yellow-400">Blog</a> */}
+          <a href="#" className="hover:text-yellow-400">Contact</a>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden text-3xl font-bold"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? "×" : "☰"}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Panel */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-white z-50 md:hidden">
+          <div className="p-6">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-8">
+              <div className="text-2xl font-bold">
+                <span className=" text-yellow-400">R</span>
+                <span className="text-black">AI</span>
+              </div>
+              <button 
+                onClick={toggleMenu}
+                className="text-4xl font-bold text-black"
+                aria-label="Close menu"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="flex flex-col space-y-6">
+              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                Home
+              </a>
+              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                About
+              </a>
+              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                Service
+              </a>
+              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                Resume
+              </a>
+              {/* <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                Portfolio
+              </a>
+              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                Blog
+              </a> */}
+              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <div className="relative h-screen">
@@ -245,7 +347,7 @@ const PhotographerPortfolio = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-50 "
           style={{ 
-            backgroundImage: "url('WhatsApp Image 2024-11-23 at 12.51.45 PM.jpeg')"
+            backgroundImage: "url('https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2018/11/dark-wallpapers.jpg')"
           }} 
         />
         
@@ -256,50 +358,63 @@ const PhotographerPortfolio = () => {
           
           {/* Social Icons */}
           <div className="flex space-x-6 mb-8">
-            <a href="#" className="hover:text-yellow-400">
-              <div className="w-10 h-10 border border-white rounded-full flex items-center justify-center">
-                f
+          <a href="https://www.linkedin.com/in/narenderrai1997/" className="hover:text-yellow-400">
+              <div className="w-10 h-10   rounded-full flex items-center justify-center font-bold">
+              <Linkedin size={20} />
               </div>
             </a>
-            <a href="#" className="hover:text-yellow-400">
-              <div className="w-10 h-10 border border-white rounded-full flex items-center justify-center">
-                t
+
+            <a href="https://github.com/Narender009" className="hover:text-yellow-400">
+              <div className="w-10 h-10  rounded-full flex items-center justify-center font-bold">
+              <Github size={20} />
               </div>
             </a>
+            
             <a href="#" className="hover:text-yellow-400">
-              <div className="w-10 h-10 border border-white rounded-full flex items-center justify-center">
-                in
-              </div>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center">
+            <Facebook size={20} />
+          </div>
             </a>
             <a href="#" className="hover:text-yellow-400">
-              <div className="w-10 h-10 border border-white rounded-full flex items-center justify-center">
-                Be
+              <div className="w-10 h-10  rounded-full flex items-center justify-center font-bold">
+              <Twitter size={20} />
               </div>
             </a>
-            <a href="#" className="hover:text-yellow-400">
-              <div className="w-10 h-10 border border-white rounded-full flex items-center justify-center">
-                Dr
+
+            <a href="https://dribbble.com/Narenderrai009" className="hover:text-yellow-400">
+              <div className="w-10 h-10  rounded-full flex items-center justify-center font-bold">
+              <Dribbble size={20} />
               </div>
             </a>
           </div>
 
           {/* Action Buttons */}
           <div className="flex space-x-4">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full">
+            <button className="bg-orange-600 hover:bg-transparent text-white px-6 py-2 rounded-full border-2 border-transparent hover:border-orange-600 transition-colors duration-300">
               View Work
             </button>
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full">
+            <button className="bg-orange-600 hover:bg-transparent text-white px-6 py-2 rounded-full border-2 border-transparent hover:border-orange-600 transition-colors duration-300">
               Hire Me
             </button>
+
           </div>
 
           {/* Scroll Down Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce bg-[#1a1f25] rounded-full shadow-lg hover:bg-transparent transition-colors duration-300 p-2 cursor-pointer"
+            onClick={() => {
+              const aboutSection = document.getElementById("about");
+              if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+          >
             <ChevronDown size={24} />
           </div>
+
         </div>
       </div>
-      <div className="min-h-screen bg-[#1a1f25] text-white p-8 flex flex-col justify-center items-center">
+      <div id='about' className="min-h-screen bg-[#1a1f25] text-white p-8 flex flex-col justify-center items-center">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <h1 className="text-4xl text-center font-bold mb-16 border-b border-gray-700 pb-4">
@@ -326,27 +441,39 @@ const PhotographerPortfolio = () => {
                 I am <span className="text-yellow-400">Narender Rai</span>
               </h2>
               <p className="text-gray-400 uppercase tracking-wider text-sm">
-                Web Developer 
+                Junior Software Developer 
               </p>
             </div>
 
             <p className="text-gray-300 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-              exercitation laboris nisi ut aliquip ex ea commodo consequat.
+ Creating interactive and responsive user interfaces using frameworks like HTML, CSS, Javascript, React, and ensuring compatibility across devices and browsers.Building server-side logic, handling business processes, and managing APIs using technologies like Node.js, Django.
             </p>
 
             <p className="text-gray-300 leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-              exercitation laboris nisi ut aliquip ex ea commodo consequat.
+Designing, implementing, and optimizing databases (SQL or NoSQL) to store and retrieve application data efficiently.Developing and consuming RESTful APIs for seamless communication between the frontend and backend.
             </p>
 
-            <button className="bg-transparent border border-gray-600 text-gray-300 px-6 py-3 
-                             hover:bg-gray-800 transition-colors duration-300 uppercase text-sm 
-                             tracking-wider">
+            <a
+              href="Narender Rai_Developer.pdf" // Replace with the actual file path or URL
+              download="Narender Rai_Developer.pdf" // Sets the default download filename
+              className="text-gray-300 px-6 py-3 uppercase text-sm tracking-wider transition-all duration-300"
+              style={{
+                background: "linear-gradient(to right, #1f2937 50%, transparent 50%)", // gray-800
+                transition: "background 0.3s ease", // Smooth transition for background
+                display: "inline-block", // Ensure the hover effect works properly
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = "linear-gradient(to right, #1f2937 100%, #1f2937 100%)"; // gray-800
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = "linear-gradient(to right, #1f2937 50%, transparent 50%)"; // gray-800
+              }}
+            >
               Download My CV
-            </button>
+            </a>
+
+
           </div>
         </div>
       </div>
@@ -450,7 +577,6 @@ const PhotographerPortfolio = () => {
         <h1 className="text-white text-4xl font-bold mb-12 text-center">
           Get In Touch
         </h1>
-        
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1">
@@ -463,7 +589,6 @@ const PhotographerPortfolio = () => {
                 className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors"
               />
             </div>
-            
             <div className="flex-1">
               <input
                 type="text"
@@ -475,7 +600,6 @@ const PhotographerPortfolio = () => {
               />
             </div>
           </div>
-          
           <div className="w-full">
             <input
               type="email"
@@ -486,7 +610,6 @@ const PhotographerPortfolio = () => {
               className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors"
             />
           </div>
-          
           <div className="w-full">
             <textarea
               name="message"
@@ -497,7 +620,6 @@ const PhotographerPortfolio = () => {
               className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors resize-none"
             />
           </div>
-          
           <button
             type="submit"
             className="bg-gray-800 text-white px-6 py-2 uppercase text-sm tracking-wider hover:bg-gray-700 transition-colors"
@@ -527,7 +649,7 @@ const PhotographerPortfolio = () => {
           {/* Copyright Text */}
           <div className="text-center text-sm">
             <p className="mb-1">Copyright © 2024 - All Right Reserved.</p>
-            <p>Designed by <a href="#" className="hover:text-white transition-colors duration-300">Cute Themes</a></p>
+            <p>Designed by <a href="#" className="hover:text-white transition-colors duration-300">Narender Rai</a></p>
           </div>
         </div>
       </div>
