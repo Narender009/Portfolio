@@ -53,7 +53,7 @@ const TypingHeader = () => {
     <h1 className="text-5xl md:text-7xl font-bold mb-8">
       I'm{' '}
       <span className="relative">
-        <span className="after:content-['|'] after:ml-2 after:animate-blink ">
+      <span className="after:content-['|'] after:ml-0.5 after:animate-blink after:font-thin">
           {text}
         </span>
       </span>
