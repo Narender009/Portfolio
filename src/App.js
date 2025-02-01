@@ -6,7 +6,8 @@ import About from './About';
 import Resume from './Resume';
 import Contact from './Contact';
 import Navbar from './Navbar';
-import Newresume from './Newresume';
+import Newresume from './components/Newresume'
+
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Newresume />} />
-          <Route path="/about" element={<About />} />
+          {/* <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<Contact />} /> */}
         </Routes>
       </div>
     </Router>

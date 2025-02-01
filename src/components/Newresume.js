@@ -2,47 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Share2, Settings, Monitor, Flower, ShoppingCart  } from 'lucide-react';
 import { Twitter, Facebook, Instagram, Dribbble, Linkedin, Github} from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
+import { Alert, AlertDescription } from './ui/alert';
 import axios from "axios";
+import ContactForm from './ContactForm';
 
 const TypingHeader = () => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
-  const [formData, setFormData] = useState({
-    name: "",
-    subject: "",
-    email: "",
-    message: "",
-  });
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrorMessage(""); // Clear error message when user starts typing
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Basic validation
-    if (!formData.name || !formData.subject || !formData.email || !formData.message) {
-      setErrorMessage("Please fill out all fields.");
-      return;
-    }
-
-    try {
-      const response = await axios.post("http://localhost:5000/send-email", formData);
-      alert("Message sent successfully!");
-      setFormData({ name: "", subject: "", email: "", message: "" }); // Reset form
-      setErrorMessage(""); // Clear error message
-    } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Failed to send the message.");
-    }
-  };
-
-  
 
   const words = ['Narender Rai', 'Junior Software Developer'];
   const period = 2000;
@@ -152,7 +122,7 @@ const PhotographerPortfolio = () => {
         <h3 className="text-xl font-semibold text-white">{item.title}</h3>
         <div className="flex items-center gap-2 text-sm">
           <span className="text-orange-500">{item.company}</span>
-          <span className="text-gray-400">•</span>
+          {/* <span className="text-gray-400">•</span> */}
           <span className="text-gray-400">{item.location}</span>
         </div>
         <span className="inline-block px-3 py-1 bg-red-500 text-white text-sm rounded">
@@ -276,12 +246,12 @@ const PhotographerPortfolio = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8">
           <a href="#" className="hover:text-yellow-400">Home</a>
-          <a href="#" className="hover:text-yellow-400">About</a>
-          <a href="#" className="hover:text-yellow-400">Service</a>
-          <a href="#" className="hover:text-yellow-400">Resume</a>
+          <a href="#about" className="hover:text-yellow-400">About</a>
+          <a href="#service" className="hover:text-yellow-400">Service</a>
+          <a href="#resume" className="hover:text-yellow-400">Resume</a>
           {/* <a href="#" className="hover:text-yellow-400">Portfolio</a>
           <a href="#" className="hover:text-yellow-400">Blog</a> */}
-          <a href="#" className="hover:text-yellow-400">Contact</a>
+          <a href="#contact" className="hover:text-yellow-400">Contact</a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -318,13 +288,13 @@ const PhotographerPortfolio = () => {
               <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
                 Home
               </a>
-              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+              <a href="#about" className="text-gray-800 hover:text-yellow-400 text-lg">
                 About
               </a>
-              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+              <a href="#service" className="text-gray-800 hover:text-yellow-400 text-lg">
                 Service
               </a>
-              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+              <a href="#resume" className="text-gray-800 hover:text-yellow-400 text-lg">
                 Resume
               </a>
               {/* <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
@@ -333,7 +303,7 @@ const PhotographerPortfolio = () => {
               <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
                 Blog
               </a> */}
-              <a href="#" className="text-gray-800 hover:text-yellow-400 text-lg">
+              <a href="#contact" className="text-gray-800 hover:text-yellow-400 text-lg">
                 Contact
               </a>
             </div>
@@ -390,10 +360,16 @@ const PhotographerPortfolio = () => {
 
           {/* Action Buttons */}
           <div className="flex space-x-4">
-            <button className="bg-orange-600 hover:bg-transparent text-white px-6 py-2 rounded-full border-2 border-transparent hover:border-orange-600 transition-colors duration-300">
+            <button className="bg-orange-600 hover:bg-transparent text-white px-6 py-2 rounded-full border-2 border-transparent hover:border-orange-600 transition-colors duration-300"
+              onClick={() => {
+                document.getElementById('service').scrollIntoView({ behavior: 'smooth' });
+              }}>
               View Work
             </button>
-            <button className="bg-orange-600 hover:bg-transparent text-white px-6 py-2 rounded-full border-2 border-transparent hover:border-orange-600 transition-colors duration-300">
+            <button className="bg-orange-600 hover:bg-transparent text-white px-6 py-2 rounded-full border-2 border-transparent hover:border-orange-600 transition-colors duration-300"
+              onClick={() => {
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+              }}>
               Hire Me
             </button>
 
@@ -414,7 +390,7 @@ const PhotographerPortfolio = () => {
 
         </div>
       </div>
-      <div id='about' className="min-h-screen bg-[#1a1f25] text-white p-8 flex flex-col justify-center items-center">
+      <div id="about" className="min-h-screen bg-[#1a1f25] text-white p-8 flex flex-col justify-center items-center">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <h1 className="text-4xl text-center font-bold mb-16 border-b border-gray-700 pb-4">
@@ -478,7 +454,7 @@ Designing, implementing, and optimizing databases (SQL or NoSQL) to store and re
         </div>
       </div>
     </div>
-    <div className="min-h-screen bg-black text-white p-8 flex flex-col justify-center items-center">
+    <div id="service" className="min-h-screen bg-black text-white p-8 flex flex-col justify-center items-center">
       <div className="max-w-6xl mx-auto ">
         {/* Header */}
         <h1 className="text-4xl font-bold mb-16 text-center border-b border-gray-700 pb-4">
@@ -509,13 +485,13 @@ Designing, implementing, and optimizing databases (SQL or NoSQL) to store and re
         </div>
 
         {/* Navigation Dots */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div id="resume" className="flex justify-center gap-2 mt-8">
           <div className="w-2 h-2 rounded-full bg-red-500"></div>
           <div className="w-2 h-2 rounded-full bg-gray-600"></div>
         </div>
       </div>
     </div>
-    <div className="min-h-screen bg-[#1a1f25] text-white p-8">
+    <div   className="min-h-screen bg-[#1a1f25] text-white p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <h1 className="text-4xl font-bold mb-16 text-center border-b border-gray-700 pb-4">
@@ -571,64 +547,9 @@ Designing, implementing, and optimizing databases (SQL or NoSQL) to store and re
         </div>
       </div>
     </div>
+    <ContactForm/>
 
-    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-3xl">
-        <h1 className="text-white text-4xl font-bold mb-12 text-center">
-          Get In Touch
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Name"
-                className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors"
-              />
-            </div>
-            <div className="flex-1">
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                placeholder="Subject"
-                className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors"
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors"
-            />
-          </div>
-          <div className="w-full">
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Message"
-              rows={4}
-              className="w-full bg-transparent border-b border-gray-700 text-gray-300 py-2 focus:outline-none focus:border-gray-500 transition-colors resize-none"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-gray-800 text-white px-6 py-2 uppercase text-sm tracking-wider hover:bg-gray-700 transition-colors"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
+
     <footer className="bg-[#0a0a0a] text-gray-400 py-6">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-center space-y-4">
