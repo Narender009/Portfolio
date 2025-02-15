@@ -53,7 +53,7 @@ const TypingHeader = () => {
     <h1 className="text-5xl md:text-7xl font-bold mb-8">
       I'm{' '}
       <span className="relative">
-      <span className="after:content-['|'] after:ml-0.5 after:animate-blink after:font-thin">
+      <span className="after:content-['|'] after:ml-0.5 after:animate-blink after:font-thin ">
           {text}
         </span>
       </span>
@@ -405,7 +405,7 @@ const PhotographerPortfolio = () => {
               <img 
                 src="WhatsApp Image 2024-11-23 at 12.51.45 PM.jpeg"
                 alt="Profile" 
-                className="w-full h-full object-cover rounded"
+                className="w-[600px] h-[385px] "
               />
             </div>
           </div>
