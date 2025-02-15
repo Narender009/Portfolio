@@ -405,7 +405,7 @@ const PhotographerPortfolio = () => {
               <img 
                 src="WhatsApp Image 2024-11-23 at 12.51.45 PM.jpeg"
                 alt="Profile" 
-                className="w-[600px] h-[385px] "
+                className="w-[600px] h-[385px]"
               />
             </div>
           </div>
