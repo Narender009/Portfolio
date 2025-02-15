@@ -29,7 +29,7 @@ const ContactForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/send-email', {
+      const response = await fetch('https://vercel.com/rainarender1997-gmailcoms-projects/server-slyn/AkgpXq42HPVHjbELJ3bgEg7B2WsW/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
