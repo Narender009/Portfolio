@@ -69,7 +69,7 @@ const PhotographerPortfolio = () => {
         company: "Orange Infotech",
         location: "Noida",
         period: "Jan 2024 - Present",
-        description: "Designed and developed a responsive frontend using React.js, improving user engagement by 20%. Built and maintained backend services using Node.js and Django, ensuring optimal server-side performance. Created RESTful APIs to facilitate seamless communication between the frontend and backend. Integrated third-party APIs and databases, enhancing system reliability and efficiency. Collaborated with cross-functional teams to design and implement new features based on client requirements. Conducted code reviews and optimized code for performance and scalability, adhering to industry best practices."
+        description: "Developed a responsive React.js frontend, boosting user engagement by 20%.Built and maintained backend services with Node.js and Django for optimal performance.Created RESTful APIs for seamless frontend-backend communication.Integrated third-party APIs and databases to enhance reliability and efficiency.Collaborated with cross-functional teams to implement client-driven features.Conducted code reviews and optimized performance following industry best practices."
       },
       // {
       //   title: "Back-End Developer",
@@ -100,7 +100,7 @@ const PhotographerPortfolio = () => {
       // },
       {
         title: "Specialization Course",
-        period: "2014 - 2016",
+        period: "2015 - 2016",
         description: "CBSE 12TH, Science"
       },
       {
@@ -431,7 +431,7 @@ Designing, implementing, and optimizing databases (SQL or NoSQL) to store and re
 
             <a
               href="Narender Rai_Developer.pdf" // Replace with the actual file path or URL
-              download="Narender Rai_Developer.pdf" // Sets the default download filename
+              download="Narender_Rai_Developer.pdf" // Sets the default download filename
               className="text-gray-300 px-6 py-3 uppercase text-sm tracking-wider transition-all duration-300"
               style={{
                 background: "linear-gradient(to right, #1f2937 50%, transparent 50%)", // gray-800
