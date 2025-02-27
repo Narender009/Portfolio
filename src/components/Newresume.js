@@ -430,7 +430,7 @@ Designing, implementing, and optimizing databases (SQL or NoSQL) to store and re
             </p>
 
             <a
-              href="Narender Rai_Developer.pdf" // Replace with the actual file path or URL
+              href="Narender_Rai_Developer.pdf" // Replace with the actual file path or URL
               download="Narender_Rai_Developer.pdf" // Sets the default download filename
               className="text-gray-300 px-6 py-3 uppercase text-sm tracking-wider transition-all duration-300"
               style={{
